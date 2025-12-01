@@ -235,7 +235,9 @@ export async function registerRoutes(
       }
 
       const newFeedback = await storage.createFeedback({
-        ...data,
+        teacherId: data.teacherId,
+        rating: data.rating,
+        comment: data.comment || undefined,
         studentId: req.user!.id,
         studentName: req.user!.name,
         subject: teacher.subject,
@@ -244,6 +246,7 @@ export async function registerRoutes(
       res.status(201).json(newFeedback);
     } catch (error) {
       if (error instanceof z.ZodError) {
+        console.error("Zod error:", error.errors);
         return res.status(400).json({ error: error.errors[0].message });
       }
       console.error("Create feedback error:", error);

@@ -66,6 +66,7 @@ export const insertFeedbackSchema = createInsertSchema(feedback).omit({
   id: true,
   createdAt: true,
   studentName: true,
+  studentId: true,
 });
 
 export type InsertUser = z.infer<typeof insertUserSchema>;
